@@ -185,6 +185,7 @@ def main():
     parser.add_argument("-g", dest="grepwords", required=False, help="Provide a wordlist to grep for")
     parser.add_argument("-m", dest="maxsize", type=int, required=False, default=1024, help="Maximum file size to download.")
     parser.add_argument("-t", dest="threads", type=int, required=False, default=1, help="thread count.")
+    parser.add_argument("-s", dest="split", required=False, help="specify delimiter [-,.].")
 
     if len(sys.argv) == 1:
         print_banner()
@@ -212,6 +213,10 @@ def main():
         print("Organisation target mode Enabled")
     else:
         arguments.organisation = None
+    if arguments.split:
+        print("Organisation delimiter mode Enabled")
+    else:
+        arguments.split="-"
 
     # start up bucket workers
     for i in range(0,arguments.threads):
@@ -229,11 +234,11 @@ def main():
     with open(arguments.hostlist) as f:
         for line in f:
             if (arguments.organisation is not None):
-                bucket = 'http://'+line.rstrip()+'-'+arguments.organisation+'.s3.amazonaws.com'
+                bucket = 'http://'+line.rstrip()+arguments.split+arguments.organisation+'.s3.amazonaws.com'
                 print('queuing {}'.format(bucket))
                 bucket_q.put(bucket)
                 if (arguments.organisation):
-                    bucket = 'http://'+arguments.organisation+'-'+line.rstrip()+'.s3.amazonaws.com'
+                    bucket = 'http://'+arguments.organisation+arguments.split+line.rstrip()+'.s3.amazonaws.com'
                     print('queuing {}'.format(bucket))
                     bucket_q.put(bucket)
             else:
