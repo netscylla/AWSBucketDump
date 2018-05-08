@@ -185,7 +185,7 @@ def main():
     parser.add_argument("-g", dest="grepwords", required=False, help="Provide a wordlist to grep for")
     parser.add_argument("-m", dest="maxsize", type=int, required=False, default=1024, help="Maximum file size to download.")
     parser.add_argument("-t", dest="threads", type=int, required=False, default=1, help="thread count.")
-    parser.add_argument("-s", dest="split", required=False, help="specify delimiter [-,.].")
+    parser.add_argument("-s", dest="split", required=False, help="specify delimiter [-,_,.].")
 
     if len(sys.argv) == 1:
         print_banner()
