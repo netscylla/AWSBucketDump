@@ -1,0 +1,10 @@
+{
+  "summary": {
+    "title": "test_tm",
+    "description": "test threat model"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": []
+  }
+}
